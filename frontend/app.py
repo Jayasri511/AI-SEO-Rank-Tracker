@@ -9,10 +9,10 @@ st.set_page_config(
     layout="wide"
 )
 
-API_REGISTER = "http://127.0.0.1:8000/register"
-API_LOGIN = "http://127.0.0.1:8000/login"
-API_ANALYSIS = "http://127.0.0.1:8000/seo-analysis"
-API_HISTORY = "http://127.0.0.1:8000/seo-history"
+API_REGISTER = "https://ai-seo-rank-tracker.onrender.com/register"
+API_LOGIN = "https://ai-seo-rank-tracker.onrender.com/login"
+API_ANALYSIS = "https://ai-seo-rank-tracker.onrender.com/seo-analysis"
+API_HISTORY = "https://ai-seo-rank-tracker.onrender.com/seo-history"
 
 st.title("🚀 AI SEO Rank Tracker")
 st.write("Professional SEO Rank Tracking and Competitive Intelligence Platform")
