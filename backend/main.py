@@ -56,8 +56,15 @@ def hash_password(password):
 
 
 def init_db():
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect(
+        DB_NAME,
+        timeout=30,
+        check_same_thread=False
+    )
     c = conn.cursor()
+
+    c.execute("PRAGMA journal_mode=WAL")
+    c.execute("PRAGMA busy_timeout=30000")
 
     c.execute("""
         CREATE TABLE IF NOT EXISTS users (
@@ -536,8 +543,14 @@ class MultiAgentOrchestrator:
 
 
 def save_report(data, final_metrics):
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect(
+        DB_NAME,
+        timeout=30,
+        check_same_thread=False
+    )
     c = conn.cursor()
+
+    c.execute("PRAGMA busy_timeout=30000")
 
     c.execute("""
         INSERT INTO seo_reports (
@@ -586,7 +599,7 @@ def home():
 @app.post("/register")
 def register(data: RegisterRequest):
     try:
-        conn = sqlite3.connect(DB_NAME)
+        conn = sqlite3.connect(DB_NAME, timeout=30, check_same_thread=False)
         c = conn.cursor()
 
         c.execute("""
@@ -610,7 +623,7 @@ def register(data: RegisterRequest):
 
 @app.post("/login")
 def login(data: LoginRequest):
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect(DB_NAME, timeout=30, check_same_thread=False)
     c = conn.cursor()
 
     c.execute(
@@ -650,7 +663,7 @@ def project_mentor(data: MentorRequest):
 
 @app.get("/seo-history")
 def seo_history(user_email: str = "guest"):
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect(DB_NAME, timeout=30, check_same_thread=False)
     c = conn.cursor()
 
     c.execute(
